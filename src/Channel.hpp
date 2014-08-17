@@ -11,6 +11,7 @@ public:
     Channel();
     void send(std::vector<int> data, int delay);
     int getIndex(int index);
+    int size();
 };
 
 #endif // CHANNEL_HPP

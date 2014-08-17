@@ -41,7 +41,7 @@ void computeSequence( double u0 , int nbIter , double (*sequenceNext)(double), s
         storage[current] = valNext;
     }
 }
-void toBinary(std::vector<double> storage)
+void toBinary(std::vector<double>& storage)
 {
     for(int i =0; i< Sequences::_length; i++)
         storage[i] = (storage[i]>=0.5)? 1.0: -1.0;

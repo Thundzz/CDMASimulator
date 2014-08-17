@@ -43,5 +43,9 @@ void SimulationSet::runSimulation(){
 }
 
 int SimulationSet::getBER(){
-    return _users[0].computeBER();
+    int a = _users[0].computeBER();
+    for (int i=0 ; i< _canal.size();  i++){
+        _canal.getIndex(i);
+    }
+    return a;
 }

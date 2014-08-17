@@ -87,7 +87,6 @@ int User::computeBER()
     int ber = 0;
     std::vector<int> decodedBits =  decodeCanal();
     for (int i =0 ; i< _nbBits; i++){
-        std::cout << decodedBits[i] << _bits[i] << std::endl;
         if (decodedBits[i] != _bits[i]){
             ber ++;
         }

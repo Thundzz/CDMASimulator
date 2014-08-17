@@ -13,6 +13,11 @@ int main(void){
     srand ( time(NULL) );
     Sequences seq = Sequences();
     for(int i = 0; i < 10; i++){
+
+        // SPREADING CODE is always 0
+        /*for(int i=0;i< seq._negCorr.size(); i++){
+            std::cout << seq._negCorr[1][i] << " ";
+        }*/
         SimulationSet a = SimulationSet(seq._negCorr);
         a.runSimulation();
 
