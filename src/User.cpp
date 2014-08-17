@@ -17,8 +17,6 @@ User::User(int delay, Channel* canal, std::vector<int> spreadingCode){
     for(int i =0; i < _nbBits; i++){
         _bits[i] = 2*(rand() % 2)-1;
     }
-    int lool =_bits[0];
-    int lool2=1;
 }
 void print(int x)
 {
@@ -70,19 +68,19 @@ void User::transmit(){
 std::vector<int> User::decodeCanal(){
     int sCSize = _spreadingCode.size();
     std::vector<int> decodedBits (_nbBits, 0);
-    int sum = 0;
+    int sum;
     for(int i = 0; i< _nbBits; i++){
         sum =0;
         for(int j =0; j< sCSize; j++)
         {
-            sum += _canal->getIndex(i*sCSize + j + _delay) ;
+            sum += _canal->getIndex(i*sCSize + j + _delay)*_spreadingCode[j];
         }
         decodedBits[i] = (sum>=0)?  1: -1 ;
     }
     return decodedBits;
 }
 
-int User::computeBER()
+double User::computeBER()
 {
     int ber = 0;
     std::vector<int> decodedBits =  decodeCanal();
@@ -91,5 +89,6 @@ int User::computeBER()
             ber ++;
         }
     }
-    return ber;
+    double res = (double)ber/(double)_nbBits;
+    return res;
 }

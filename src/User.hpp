@@ -33,7 +33,7 @@ public:
     User();
     User(int delay, Channel* canal, std::vector<int> spreadingCode);
     void transmit();
-    int computeBER();
+    double computeBER();
 
 public:
     void printChips();

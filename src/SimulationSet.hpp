@@ -16,7 +16,7 @@ public:
 public:
     SimulationSet(std::vector<std::vector<double>>& spreadingCode);
     void runSimulation();
-    int getBER();
+    double getBER();
 };
 
 

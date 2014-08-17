@@ -15,8 +15,6 @@ void Channel::send(std::vector<int> data, int delay){
     for (int i =0; i < len; i++)
     {
         _storage[delay +i] +=data[i];
-        //TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-        //std::cout << data[i] << " ";
     }
 }
 

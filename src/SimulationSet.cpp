@@ -16,8 +16,7 @@ std::vector<int> sequenceId(int maxi){
 
 SimulationSet::SimulationSet(std::vector<std::vector<double>>& spreadingCode){
 
-    //double possibleNbUsers[] = {15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65};
-    double possibleNbUsers[] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+    double possibleNbUsers[] = {15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65};
     std::vector<int> userSSeq = sequenceId(127);
     std::vector<double> currentSeq;
 
@@ -42,10 +41,6 @@ void SimulationSet::runSimulation(){
     }
 }
 
-int SimulationSet::getBER(){
-    int a = _users[0].computeBER();
-    for (int i=0 ; i< _canal.size();  i++){
-        _canal.getIndex(i);
-    }
-    return a;
+double SimulationSet::getBER(){
+    return _users[0].computeBER();;
 }

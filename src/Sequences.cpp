@@ -29,6 +29,11 @@ double logisticNext(double x, double mu=4){
     return (mu* x*(1-x));
 }
 
+double logist(double x)
+{
+    return logisticNext( x, 4);
+}
+
 void computeSequence( double u0 , int nbIter , double (*sequenceNext)(double), std::vector<double>& storage ){
     int current =0;
     double valNext;
@@ -62,24 +67,24 @@ Sequences::Sequences() {
 
         computeSequence(0.9847 *i/_number, _length, posPlm, _posCorr[i]);
         computeSequence(0.9847 *i/_number, _length, negPlm, _negCorr[i]);
-        computeSequence(0.9847 *i/_number, _length, negPlm, _unCorr[i]);
+        computeSequence(0.9847 *i/_number, _length, logist, _unCorr[i]);
 
         toBinary(_posCorr[i]);
         toBinary(_negCorr[i]);
-        toBinary(_negCorr[i]);
+        toBinary(_unCorr[i]);
     }
 }
 
-std::vector<double> Sequences::posCorr(double index){
+std::vector<double> Sequences::posCorr(int index){
     return _posCorr[index];
 }
-std::vector<double> Sequences::negCorr(double index){
+std::vector<double> Sequences::negCorr(int index){
     return _negCorr[index];
 }
-std::vector<double> Sequences::unCorr(double index){
+std::vector<double> Sequences::unCorr(int index){
     return _unCorr[index];
 }
-std::vector<double> Sequences::goldSequence(double index){
+std::vector<double> Sequences::goldSequence(int index){
     return _goldSequences[index];
 }
 

@@ -17,10 +17,10 @@ public:
 
 public:
     Sequences();
-    std::vector<double> posCorr(double index);
-    std::vector<double> negCorr(double index);
-    std::vector<double> unCorr(double index);
-    std::vector<double> goldSequence(double index);
+    std::vector<double> posCorr(int index);
+    std::vector<double> negCorr(int index);
+    std::vector<double> unCorr(int index);
+    std::vector<double> goldSequence(int index);
 public:
 
 };
