@@ -1,5 +1,10 @@
 #include "Sequences.hpp"
 #include <iostream>
+#include <sstream>
+#include <string>
+#include <fstream>
+#include <cmath>
+
 
 double plm(double x,double  a){
     double b = (1.0-a)/2, x1, x2;
@@ -23,15 +28,40 @@ double posPlm(double x){
 }
 double negPlm(double x)
 {
-    return plm(x, -1.5);
+    return plm(x, -2-sqrt(3) );
 }
 double logisticNext(double x, double mu=4){
     return (mu* x*(1-x));
 }
 
-double logist(double x)
-{
+double logist(double x){
     return logisticNext( x, 4);
+}
+
+
+void Sequences::parseSequences(const char * filename, std::vector<std::vector<double>>& storage){
+    std::ifstream infile(filename);
+    std::string line;
+    int bit;
+    int lineNumber=0;
+    while (std::getline(infile, line))
+    {
+        std::istringstream iss(line);
+        for(int i=0; i<_length; i++)
+        {
+            iss >> bit;
+            storage[lineNumber][i] = 2*bit-1;
+        }
+        lineNumber++;
+    }
+}
+
+void Sequences::parseGoldSequences(const char * filename ){
+    parseSequences(filename,  _goldSequences);
+}
+
+void Sequences::parseProposedSequences(const char * filename ){
+    parseSequences(filename,  _proposedSequences);
 }
 
 void computeSequence( double u0 , int nbIter , double (*sequenceNext)(double), std::vector<double>& storage ){
@@ -56,6 +86,7 @@ Sequences::Sequences() {
     _negCorr =  std::vector<std::vector<double>>(_number);
     _unCorr =  std::vector<std::vector<double>>(_number);
     _goldSequences =  std::vector<std::vector<double>>(_number);
+    _proposedSequences =  std::vector<std::vector<double>>(_number);
 
     for (int i =0 ; i< _number; i++)
     {
@@ -64,6 +95,7 @@ Sequences::Sequences() {
         _negCorr[i] = std::vector<double>(_length, 0);
         _unCorr[i] = std::vector<double>(_length, 0);
         _goldSequences[i] =  std::vector<double>(_length, 0);
+        _proposedSequences[i] =  std::vector<double>(_length, 0);
 
         computeSequence(0.9847 *i/_number, _length, posPlm, _posCorr[i]);
         computeSequence(0.9847 *i/_number, _length, negPlm, _negCorr[i]);
@@ -73,6 +105,8 @@ Sequences::Sequences() {
         toBinary(_negCorr[i]);
         toBinary(_unCorr[i]);
     }
+    parseGoldSequences("goldSequences.txt");
+    parseProposedSequences("proposedSequences.txt");
 }
 
 std::vector<double> Sequences::posCorr(int index){

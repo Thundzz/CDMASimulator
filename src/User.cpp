@@ -73,7 +73,10 @@ std::vector<int> User::decodeCanal(){
         sum =0;
         for(int j =0; j< sCSize; j++)
         {
-            sum += _canal->getIndex(i*sCSize + j + _delay)*_spreadingCode[j];
+            for(int k=0; k< 10; k++)
+            {
+                sum += _canal->getIndex((i*sCSize + j)*10 + k + _delay)*_spreadingCode[j];
+            }
         }
         decodedBits[i] = (sum>=0)?  1: -1 ;
     }

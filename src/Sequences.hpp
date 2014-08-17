@@ -9,11 +9,19 @@ public:
     static const int _number = 129;
     static const int _length = 127;
 
+
+private:
+    void parseSequences(const char * filename, std::vector<std::vector<double>>& storage);
+    void parseGoldSequences(const char * filename);
+    void parseProposedSequences(const char * filename);
+
+
 public:
     std::vector<std::vector<double>> _goldSequences;
     std::vector<std::vector<double>> _posCorr;
     std::vector<std::vector<double>> _negCorr;
     std::vector<std::vector<double>> _unCorr;
+    std::vector<std::vector<double>> _proposedSequences;
 
 public:
     Sequences();

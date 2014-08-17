@@ -9,18 +9,29 @@
 #include "Sequences.hpp"
 #include "SimulationSet.hpp"
 
-int main(void){
-    std::ofstream logFile;
-    logFile.open ("negCorr.txt");
+#define NBSIMULATIONS 10000
 
+void simulateSequence(const char * filename, std::vector<std::vector<double>> sequenceContainer ){
+    std::cout<< "Processing: " << filename<<std::endl ;
+    std::ofstream logFile;
+    logFile.open (filename);
+    for(int i = 0; i < NBSIMULATIONS; i++){
+        SimulationSet simu = SimulationSet(sequenceContainer);
+        simu.runSimulation();
+        std::cout << "Simulating... (" << (double)100* i/NBSIMULATIONS << "%)" <<" \r";
+        logFile << simu._nbUsers << " " << std::fixed <<simu.getBER() << std::endl;
+    }
+    std::cout << std::endl;
+    logFile.close();
+}
+
+int main(void){
     srand ( time(NULL) );
     Sequences seq = Sequences();
-    for(int i = 0; i < 1000; i++){
-        SimulationSet simu = SimulationSet(seq._negCorr);
-        simu.runSimulation();
-        //std::cout<< "Simulation #" << i << " : " << simu.getBER() <<" \n";
-        logFile << "Simulation #" << i << " : " << simu.getBER() <<" \n";
-    }
-    logFile.close();
+    //simulateSequence("CproposedSeq.txt", seq._proposedSequences);
+    //simulateSequence("CgoldSeq.txt", seq._goldSequences);
+    //simulateSequence("CunCorrP.txt", seq._unCorr);
+    //simulateSequence("CnegCorr.txt", seq._negCorr);
+
     return 0;
 }
