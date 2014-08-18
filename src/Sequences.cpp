@@ -105,8 +105,8 @@ Sequences::Sequences() {
         toBinary(_negCorr[i]);
         toBinary(_unCorr[i]);
     }
-    parseGoldSequences("goldSequences.txt");
-    parseProposedSequences("proposedSequences.txt");
+    parseGoldSequences("../data/goldSequences.txt");
+    parseProposedSequences("../data/proposedSequences.txt");
 }
 
 std::vector<double> Sequences::posCorr(int index){
